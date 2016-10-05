@@ -60,8 +60,4 @@ if __name__ == '__main__':
     print()
     dir_str = "directories"
     file_str = "files"
-    if (counts[0] == 1):
-        dir_str = "directory"
-    if (counts[1] == 1):
-        file_str = "file"
     print("{} {}, {} {}".format(counts[0], dir_str, counts[1], file_str))
