@@ -12,12 +12,13 @@ paddingL = "└── "
 
 
 def prepare_path(path):
-    children = os.listdir(path)
-    for t in children:
+    child = []
+    temp = os.listdir(path)
+    for t in temp:
         if t[0] != '.':
-            children.append(t)
-    children.sort()
-    return children
+            child.append(t)
+    child.sort()
+    return child
 
 
 def prepare_dir(new_path, counts, the_end, padding):
