@@ -21,26 +21,10 @@ def prepare_path(path):
     return child
 
 
-def prepare_dir(new_path, counts, the_end, padding):
-    counts[0] = counts[0] + 1
-    if (the_end):
-        padding = padding + padding0
-    else:
-        padding = padding + paddingI
-    print_tree(new_path, counts, padding)
-    padding = padding[:-4]
-
-
 def print_tree(path, counts, padding=""):
     children = prepare_path(path)
     for i in range(0, len(children)):
         the_end = False
-        if (i == len(children) - 1):
-            the_end = True
-            print(padding + paddingL + children[i])
-        else:
-            print(padding + paddingT + children[i])
-        new_path = os.path.join(path, children[i])
         if (os.path.isdir(new_path)):
             prepare_dir(new_path, counts, the_end, padding)
         else:
@@ -57,7 +41,3 @@ if __name__ == '__main__':
         path = sys.argv[1]
     print(path)
     print_tree(path, counts)
-    print()
-    dir_str = "directories"
-    file_str = "files"
-    print("{} {}, {} {}".format(counts[0], dir_str, counts[1], file_str))
