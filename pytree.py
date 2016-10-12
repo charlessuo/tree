@@ -51,4 +51,4 @@ if __name__ == '__main__':
     temp = path_tree(curr_dir)
     ndirs, nfiles = temp[0], temp[1]
     print()
-    print("{} {}, {} {}".format(ndirs, (" directories, " if ndirs != 1 else " directory, "), nfiles - ndirs, (" files" if nfiles != 1 else " file")))
+    print("{} {}, {} {}".format(ndirs, ("directories" if ndirs != 1 else "directory"), nfiles - ndirs, ("files" if nfiles != 1 else "file")))
