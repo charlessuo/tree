@@ -18,7 +18,6 @@ def path_tree(curr_dir, padding=""):
         if t[0] != '.':
             child.append(t)
     child.sort()
-    #return child
     ndirs = 0
     nfiles = 0
     for i in range(len(child)):
@@ -30,13 +29,14 @@ def path_tree(curr_dir, padding=""):
         nfiles += 1
         new_path = os.path.join(curr_dir, filename)
         if os.path.isdir(new_path):
-            temp = path_tree(new_path, padding + indent)
-        else:
-            temp = path_tree(new_path, padding + indent_end)
+            if i < len(child) - 1:
+                temp = path_tree(new_path, padding + indent)
+            else:
+                temp = path_tree(new_path, padding + indent_end)
             ndirs += temp[0]
             nfiles += temp[1]
             ndirs += 1
-        return ndirs, nfiles
+    return ndirs, nfiles
 
 
 if __name__ == '__main__':
