@@ -5,39 +5,44 @@ import re
 import string
 
 
-paddingI = "│   "
-padding0 = "    "
-paddingT = "├── "
-paddingL = "└── "
+indent = "│   "
+indent_end = "    "
+branch = "├── "
+branch_end = "└── "
 
 
-def prepare_path(path):
+def path_tree(curr_dir, count, padding=""):
     child = []
-    temp = os.listdir(path)
+    temp = os.listdir(curr_dir)
     for t in temp:
         if t[0] != '.':
             child.append(t)
     child.sort()
-    return child
-
-
-def print_tree(path, counts, padding=""):
-    children = prepare_path(path)
-    for i in range(0, len(children)):
-        the_end = False
-        if (os.path.isdir(new_path)):
-            prepare_dir(new_path, counts, the_end, padding)
+    #return child
+    ndirs, nfiles = 0, 0
+    for i in range(len(child)):
+        filename = child[i]
+        if i < len(child) - 1:
+            print (padding + branch + filename)
         else:
-            counts[1] = counts[1] + 1
+            print (padding + branch_end + filename)
+        nfiles += 1
+        new_path = os.path.join(curr_dir, filename)
+        if os.path.isdir(new_path):
+            path_tree(new_path, count, padding + indent_end)
+            ndirs += 1
 
 
 if __name__ == '__main__':
     if (len(sys.argv) > 2):
-        print("Invalid")
+        print("Error")
         sys.exit()
-    counts = [0, 0]
-    path = "."
+    ndirs, nfiles = 0, 0
+    count = [0, 0]
+    curr_dir = "."
     if len(sys.argv) == 2:
-        path = sys.argv[1]
-    print(path)
-    print_tree(path, counts)
+        curr_dir = sys.argv[1]
+    print(curr_dir)
+    path_tree(curr_dir, count)
+    print()
+    print("{} {}, {} {}".format(ndirs, (" directories, " if ndirs != 1 else " directory, "), nfiles, (" files" if nfiles != 1 else " file")))
