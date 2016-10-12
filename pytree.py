@@ -23,9 +23,9 @@ def path_tree(curr_dir, padding=""):
     for i in range(len(child)):
         filename = child[i]
         if i < len(child) - 1:
-            print (padding + branch + filename)
+            print(padding + branch + filename)
         else:
-            print (padding + branch_end + filename)
+            print(padding + branch_end + filename)
         nfiles += 1
         new_path = os.path.join(curr_dir, filename)
         if os.path.isdir(new_path):
@@ -51,4 +51,4 @@ if __name__ == '__main__':
     temp = path_tree(curr_dir)
     ndirs, nfiles = temp[0], temp[1]
     print()
-    print("{} {}, {} {}".format(ndirs, (" directories, " if ndirs != 1 else " directory, "), nfiles, (" files" if nfiles != 1 else " file")))
+    print("{} {}, {} {}".format(ndirs, (" directories, " if ndirs != 1 else " directory, "), nfiles-ndirs, (" files" if nfiles != 1 else " file")))
