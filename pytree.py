@@ -11,7 +11,7 @@ branch = "├── "
 branch_end = "└── "
 
 
-def path_tree(curr_dir, count, padding=""):
+def path_tree(curr_dir, padding=""):
     child = []
     temp = os.listdir(curr_dir)
     for t in temp:
@@ -19,7 +19,8 @@ def path_tree(curr_dir, count, padding=""):
             child.append(t)
     child.sort()
     #return child
-    ndirs, nfiles = 0, 0
+    ndirs = 0
+    nfiles = 0
     for i in range(len(child)):
         filename = child[i]
         if i < len(child) - 1:
@@ -29,8 +30,9 @@ def path_tree(curr_dir, count, padding=""):
         nfiles += 1
         new_path = os.path.join(curr_dir, filename)
         if os.path.isdir(new_path):
-            path_tree(new_path, count, padding + indent_end)
+            path_tree(new_path, padding + indent_end)
             ndirs += 1
+        return ndirs, nfiles
 
 
 if __name__ == '__main__':
@@ -38,11 +40,11 @@ if __name__ == '__main__':
         print("Error")
         sys.exit()
     ndirs, nfiles = 0, 0
-    count = [0, 0]
     curr_dir = "."
     if len(sys.argv) == 2:
         curr_dir = sys.argv[1]
     print(curr_dir)
-    path_tree(curr_dir, count)
+    temp = path_tree(curr_dir)
+    ndirs, nfiles = temp[0], temp[1]
     print()
     print("{} {}, {} {}".format(ndirs, (" directories, " if ndirs != 1 else " directory, "), nfiles, (" files" if nfiles != 1 else " file")))
