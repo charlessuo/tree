@@ -30,7 +30,11 @@ def path_tree(curr_dir, padding=""):
         nfiles += 1
         new_path = os.path.join(curr_dir, filename)
         if os.path.isdir(new_path):
-            path_tree(new_path, padding + indent_end)
+            temp = path_tree(new_path, padding + indent)
+        else:
+            temp = path_tree(new_path, padding + indent_end)
+            ndirs += temp[0]
+            nfiles += temp[1]
             ndirs += 1
         return ndirs, nfiles
 
